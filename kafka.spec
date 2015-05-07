@@ -26,6 +26,9 @@ Vendor: Apache Software Foundation
 Packager: Ivan Dyachkov <ivan.dyachkov@klarna.com>
 Provides: kafka kafka-server
 BuildRequires: systemd
+Requires(post): systemd
+Requires(preun): systemd
+Requires(postun): systemd
 
 %description
 Kafka is designed to allow a single cluster to serve as the central data backbone for a large organization. It can be elastically and transparently expanded without downtime. Data streams are partitioned and spread over a cluster of machines to allow data streams larger than the capability of any single machine and to allow clusters of co-ordinated consumers. Messages are persisted on disk and replicated within the cluster to prevent data loss.
@@ -71,20 +74,18 @@ if ! /usr/bin/getent passwd kafka >/dev/null ; then
 fi
 
 %post
+%systemd_post kafka.service
 
 %preun
-# When the last version of a package is erased, $1 is 0
-if [ $1 = 0 ]; then
-    systemctl stop kafka
-    systemctl disable kafka
-fi
+%systemd_preun kafka.service
 
 %postun
 # When the last version of a package is erased, $1 is 0
 # Otherwise it's an upgrade and we need to restart the service
 if [ $1 -ge 1 ]; then
-    systemctl restart kafka
+    /usr/bin/systemctl restart kafka.service
 fi
+/usr/bin/systemctl daemon-reload >/dev/null 2>&1 || :
 
 %files
 %defattr(-,root,root)
