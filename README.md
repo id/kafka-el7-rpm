@@ -25,3 +25,7 @@ binaries: /opt/kafka
 data:     /var/lib/kafka  
 logs:     /var/log/kafka  
 configs:  /etc/kafka, /etc/sysconfig/kafka  
+
+kafka-graphite
+--------------
+Built from https://github.com/damienclaveau/kafka-graphite

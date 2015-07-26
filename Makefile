@@ -12,7 +12,6 @@ URL = $(shell curl -s https://www.apache.org/dyn/closer.cgi/kafka/$(KAFKA_VERSIO
 METRICS_GRAPHITE = metrics-graphite-2.2.0.jar
 METRICS_GRAPHITE_URL = http://search.maven.org/remotecontent?filepath=com/yammer/metrics/metrics-graphite/2.2.0/$(METRICS_GRAPHITE)
 KAFKA_GRAPHITE = kafka-graphite-1.0.0.jar
-KAFKA_GRAPHITE_URL = http://nexus.internal.machines/service/local/repositories/bix-releases/content/com/criteo/kafka/kafka-graphite/1.0.0/$(KAFKA_GRAPHITE)
 
 rpm: source
 	@rpmbuild -v -bb \
@@ -45,5 +44,3 @@ KEYS:
 $(METRICS_GRAPHITE):
 	@wget -q $(METRICS_GRAPHITE_URL) -O $(METRICS_GRAPHITE)
 
-$(KAFKA_GRAPHITE):
-	@wget -q $(KAFKA_GRAPHITE_URL) -O $(KAFKA_GRAPHITE)
