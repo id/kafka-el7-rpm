@@ -11,7 +11,6 @@ PWD = $(shell pwd)
 URL = $(shell curl -s https://www.apache.org/dyn/closer.cgi/kafka/$(KAFKA_VERSION)/$(SOURCE)?asjson=1 | python -c 'import sys,json; data=json.load(sys.stdin); print data["preferred"] + data["path_info"]')
 METRICS_GRAPHITE = metrics-graphite-2.2.0.jar
 METRICS_GRAPHITE_URL = http://search.maven.org/remotecontent?filepath=com/yammer/metrics/metrics-graphite/2.2.0/$(METRICS_GRAPHITE)
-KAFKA_GRAPHITE = kafka-graphite-1.0.0.jar
 
 rpm: source
 	@rpmbuild -v -bb \
@@ -26,9 +25,9 @@ rpm: source
 
 clean:
 	@rm -rf $(TOPDIR) x86_64
-	@rm -f $(SOURCE) $(SOURCE).asc KEYS $(METRICS_GRAPHITE) $(KAFKA_GRAPHITE)
+	@rm -f $(SOURCE) $(SOURCE).asc KEYS $(METRICS_GRAPHITE)
 
-source: $(SOURCE) $(METRICS_GRAPHITE) $(KAFKA_GRAPHITE)
+source: $(SOURCE) $(METRICS_GRAPHITE)
 
 $(SOURCE): KEYS $(SOURCE).asc
 	@wget -q $(URL)
