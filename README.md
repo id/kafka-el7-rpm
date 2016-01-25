@@ -1,7 +1,7 @@
 kafka-redhat7-rpm
 ---------
 A set of scripts to package kafka into an rpm
-Requires CentOS/RedHat 7.
+Requires CentOS/RedHat 7 or Docker.
 
 Setup
 -----
@@ -11,7 +11,12 @@ Building
 --------
     make rpm
 
-Resulting RPM will be avaliable at $(shell pwd)/x86_64
+or use Docker
+
+    docker build -t kafka-build . && docker run -ti -v `pwd`/RPMS:/root/RPMS kafka-build
+    
+
+Resulting RPM will be available at $(shell pwd)/RPMS/x86_64
 
 Installing and operating
 ------------------------

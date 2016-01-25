@@ -4,6 +4,7 @@ KAFKA_VERSION ?= 0.8.2.1
 SCALA_VERSION ?= 2.10
 VERSION = $(shell echo $(KAFKA_VERSION) | sed "s/-/_/")
 BUILD_NUMBER ?= 1
+BUILD_METRICS ?= 1
 SOURCE_NAME = kafka_$(SCALA_VERSION)-$(KAFKA_VERSION)
 SOURCE = $(SOURCE_NAME).tgz
 TOPDIR = /tmp/kafka-rpm
@@ -19,8 +20,9 @@ rpm: source
 			--define "source $(SOURCE)" \
 			--define "source_name $(SOURCE_NAME)" \
 			--define "_sourcedir $(PWD)" \
-			--define "_rpmdir $(PWD)" \
+			--define "_rpmdir $(PWD)/RPMS" \
 			--define "_topdir $(TOPDIR)" \
+			--define "build_with_metrics $(BUILD_METRICS)" \
 			kafka.spec
 
 clean:
@@ -41,5 +43,4 @@ KEYS:
 	gpg --import KEYS
 
 $(METRICS_GRAPHITE):
-	@wget -q $(METRICS_GRAPHITE_URL) -O $(METRICS_GRAPHITE)
-
+		@wget -q $(METRICS_GRAPHITE_URL) -O $(METRICS_GRAPHITE)

@@ -18,8 +18,11 @@ Source2: kafka.logrotate
 Source3: server.properties
 Source4: log4j.properties
 Source5: kafka.sysconfig
+%if %{build_with_metrics}
+# adding metric specific sources.
 Source6: metrics-graphite-2.2.0.jar
 Source7: kafka-graphite-1.0.0.jar
+%endif
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Prefix: %{_prefix}
 Vendor: Apache Software Foundation
@@ -53,8 +56,11 @@ install -p -D -m 644 %{S:3} $RPM_BUILD_ROOT%{_conf_dir}/
 install -p -D -m 644 %{S:4} $RPM_BUILD_ROOT%{_conf_dir}/
 install -p -D -m 644 %{S:5} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/kafka
 install -p -D -m 644 libs/* $RPM_BUILD_ROOT%{_prefix}/kafka/libs
+%if %{build_with_metrics}
+# adding metric specific sources.
 install -p -D -m 644 %{S:6} $RPM_BUILD_ROOT%{_prefix}/kafka/libs
 install -p -D -m 644 %{S:7} $RPM_BUILD_ROOT%{_prefix}/kafka/libs
+%endif
 # stupid systemd fails to expand file paths in runtime
 CLASSPATH=
 for f in $RPM_BUILD_ROOT%{_prefix}/kafka/libs/*.jar
@@ -99,4 +105,3 @@ fi
 %attr(0700,kafka,kafka) %dir %{_data_dir}
 %doc NOTICE
 %doc LICENSE
-

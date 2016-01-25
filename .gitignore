@@ -4,3 +4,4 @@
 /x86_64/
 /*.jar
 !kafka-graphite*.jar
+/RPMS
