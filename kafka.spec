@@ -100,7 +100,7 @@ fi
 %config(noreplace) %{_sysconfdir}/logrotate.d/kafka
 %config(noreplace) %{_sysconfdir}/sysconfig/kafka
 %config(noreplace) %{_conf_dir}/*
-%attr(-,kafka,kafka) %{_prefix}/kafka
+%{_prefix}/kafka
 %attr(0755,kafka,kafka) %dir %{_log_dir}
 %attr(0700,kafka,kafka) %dir %{_data_dir}
 %doc NOTICE
