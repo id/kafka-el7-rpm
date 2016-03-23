@@ -1,7 +1,7 @@
 .PHONY:	rpm clean source
 
-KAFKA_VERSION ?= 0.8.2.1
-SCALA_VERSION ?= 2.10
+KAFKA_VERSION ?= 0.9.0.0
+SCALA_VERSION ?= 2.11
 VERSION = $(shell echo $(KAFKA_VERSION) | sed "s/-/_/")
 BUILD_NUMBER ?= 1
 BUILD_METRICS ?= 1
