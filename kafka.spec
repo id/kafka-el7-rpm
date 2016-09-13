@@ -19,7 +19,7 @@ Source4: kafka.sysconfig
 %if %{build_with_metrics}
 # adding metric specific sources.
 Source6: metrics-graphite-2.2.0.jar
-Source7: kafka-graphite-1.0.0.jar
+Source7: kafka-graphite-1.0.4.jar
 %endif
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Prefix: %{_prefix}
@@ -88,4 +88,3 @@ fi
 %attr(0700,kafka,kafka) %dir %{_data_dir}
 %doc NOTICE
 %doc LICENSE
-
