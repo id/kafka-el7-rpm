@@ -75,7 +75,7 @@ fi
 %systemd_preun kafka.service
 
 %postun
-%systemd_postun
+%systemd_postun kafka.service
 
 %files
 %defattr(-,root,root)
