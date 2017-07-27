@@ -6,7 +6,7 @@ Requires CentOS/RedHat 7 or Docker.
 
 # Prerequisites
 
-    sudo yum install make rpmdevtools
+    sudo yum install make rpmdevtools wget
 
 or Docker.
 
