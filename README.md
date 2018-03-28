@@ -24,7 +24,7 @@ Make command
 
     make docker-rpm
 
-Resulting RPM will be available at $(shell pwd)/RPMS/x86_64
+Resulting RPM will be available at `$(shell pwd)/RPMS/x86_64`
 
 # Installing and operating
 
