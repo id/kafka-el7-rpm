@@ -1,13 +1,20 @@
 [Unit]
-Description=Kafka
-After=network.target
+Description=Apache Kafka server (broker)
+Documentation=http://kafka.apache.org/documentation.html
+Requires=network.target remote-fs.target
+After=network.target remote-fs.target zookeeper.service
+ConditionPathExists=/etc/kafka/server.properties
+ConditionPathExists=/var/lib/kafka
 
 [Service]
-User=kafka
-Group=kafka
-Environment=CLASSPATH=.:/opt/kafka/libs/*
+Type=simple
+PIDFile=/var/run/kafka.pid
+WorkingDirectory=/var/lib/kafka
 EnvironmentFile=/etc/sysconfig/kafka
-ExecStart=/bin/java -cp $CLASSPATH $KAFKA_LOG4J_OPTS $KAFKA_HEAP_OPTS $KAFKA_JVM_PERFORMANCE_OPTS $KAFKA_GC_LOG_OPTS $KAFKA_JMX_OPTS kafka.Kafka $KAFKA_SERVER_CONFIG
+ExecStart=/opt/kafka/bin/kafka-server-start.sh /etc/kafka/server.properties
+ExecStop=/opt/kafka/bin/kafka-server-stop.sh
+Restart=on-failure
+SyslogIdentifier=kafka
 
 [Install]
 WantedBy=multi-user.target
