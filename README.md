@@ -14,11 +14,17 @@ or Docker.
 
     make rpm
 
-or use Docker
+# Building with Docker
+
+Manually
 
     docker build -t kafka-build . && docker run -ti -v $(pwd)/RPMS:/root/RPMS kafka-build
 
-Resulting RPM will be available at $(shell pwd)/RPMS/x86_64
+Make command
+
+    make docker-rpm
+
+Resulting RPM will be available at `$(shell pwd)/RPMS/x86_64`
 
 # Installing and operating
 
