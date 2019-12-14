@@ -15,9 +15,10 @@ License: Apache License, Version 2.0
 URL: http://kafka.apache.org/
 Source0: %{source}
 Source1: %{name}.service
-Source2: %{name}.logrotate
-Source3: %{name}.log4j.properties
-Source4: %{name}.sysconfig
+Source2: zookeeper.service
+Source3: %{name}.logrotate
+Source4: %{name}.log4j.properties
+Source5: %{name}.sysconfig
 %if %{build_with_metrics}
 # adding metric specific sources.
 Source6: metrics-graphite-2.2.0.jar
@@ -51,9 +52,10 @@ install -p -D -m 644 config/* $RPM_BUILD_ROOT%{_prefix}/%{name}/config
 install -p -D -m 644 config/server.properties $RPM_BUILD_ROOT%{_conf_dir}/
 sed -i "s:^log.dirs=.*:log.dirs=%{_data_dir}:" $RPM_BUILD_ROOT%{_conf_dir}/server.properties
 install -p -D -m 755 %{S:1} $RPM_BUILD_ROOT%{_unitdir}/
-install -p -D -m 644 %{S:2} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}
-install -p -D -m 644 %{S:3} $RPM_BUILD_ROOT%{_conf_dir}/
-install -p -D -m 644 %{S:4} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{name}
+install -p -D -m 755 %{S:2} $RPM_BUILD_ROOT%{_unitdir}/
+install -p -D -m 644 %{S:3} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}
+install -p -D -m 644 %{S:4} $RPM_BUILD_ROOT%{_conf_dir}/
+install -p -D -m 644 %{S:5} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{name}
 install -p -D -m 644 libs/* $RPM_BUILD_ROOT%{_prefix}/%{name}/libs
 %if %{build_with_metrics}
 # adding metric specific sources.
@@ -71,16 +73,20 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %systemd_post %{name}.service
+%systemd_post zookeeper.service
 
 %preun
 %systemd_preun %{name}.service
+%systemd_preun zookeeper.service
 
 %postun
 %systemd_postun %{name}.service
+%systemd_postun zookeeper.service
 
 %files
 %defattr(-,root,root)
 %{_unitdir}/%{name}.service
+%{_unitdir}/zookeeper.service
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %config(noreplace) %{_conf_dir}/*

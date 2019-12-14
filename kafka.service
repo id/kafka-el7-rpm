@@ -1,6 +1,6 @@
 [Unit]
 Description=Kafka
-After=network.target
+After=network.target zookeeper.service
 
 [Service]
 User=kafka
