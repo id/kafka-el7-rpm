@@ -57,6 +57,7 @@ install -p -D -m 644 %{S:3} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}
 install -p -D -m 644 %{S:4} $RPM_BUILD_ROOT%{_conf_dir}/
 install -p -D -m 644 %{S:5} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{name}
 install -p -D -m 644 libs/* $RPM_BUILD_ROOT%{_prefix}/%{name}/libs
+ln -sf %{_log_dir} $RPM_BUILD_ROOT%{_prefix}/%{name}/logs
 %if %{build_with_metrics}
 # adding metric specific sources.
 install -p -D -m 644 %{S:6} $RPM_BUILD_ROOT%{_prefix}/%{name}/libs
