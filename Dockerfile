@@ -4,7 +4,7 @@ MAINTAINER Sebastien Le Digabel "sledigabel@gmail.com"
 
 RUN yum install -y wget make rpmdevtools
 
-ADD Makefile kafka.logrotate kafka.service kafka.spec kafka.sysconfig log4j.properties kafka-graphite-*.jar /root/
+ADD Makefile kafka.logrotate kafka.service kafka.spec kafka.sysconfig kafka.log4j.properties kafka-graphite-*.jar /root/
 
 RUN mkdir /root/RPMS
 
