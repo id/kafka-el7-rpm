@@ -1,15 +1,15 @@
 .PHONY:	rpm clean source
 
-KAFKA_VERSION ?= 2.3.0
-SCALA_VERSION ?= 2.12
+KAFKA_VERSION ?= 2.6.3
+SCALA_VERSION ?= 2.13
 VERSION = $(shell echo $(KAFKA_VERSION) | sed "s/-/_/")
-BUILD_NUMBER ?= 3
+BUILD_NUMBER ?= 1
 BUILD_METRICS ?= 1
 SOURCE_NAME = kafka_$(SCALA_VERSION)-$(KAFKA_VERSION)
 SOURCE = $(SOURCE_NAME).tgz
 TOPDIR = /tmp/kafka-rpm
 PWD = $(shell pwd)
-URL = $(shell curl -s https://www.apache.org/dyn/closer.cgi/kafka/$(KAFKA_VERSION)/$(SOURCE)?asjson=1 | python -c 'import sys,json; data=json.load(sys.stdin); print data["preferred"] + data["path_info"]')
+URL = https://archive.apache.org/dist/kafka/$(KAFKA_VERSION)/$(SOURCE)
 METRICS_GRAPHITE = metrics-graphite-2.2.0.jar
 METRICS_GRAPHITE_URL = http://search.maven.org/remotecontent?filepath=com/yammer/metrics/metrics-graphite/2.2.0/$(METRICS_GRAPHITE)
 
@@ -36,7 +36,7 @@ $(SOURCE): KEYS $(SOURCE).asc
 	gpg --verify $(SOURCE).asc $(SOURCE)
 
 $(SOURCE).asc:
-	@wget -q https://dist.apache.org/repos/dist/release/kafka/$(KAFKA_VERSION)/$(SOURCE).asc
+	@wget -q https://archive.apache.org/dist/kafka/$(KAFKA_VERSION)/$(SOURCE).asc
 
 KEYS:
 	@wget -q https://dist.apache.org/repos/dist/release/kafka/KEYS

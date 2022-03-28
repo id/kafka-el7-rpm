@@ -21,7 +21,7 @@ Source4: %{name}.sysconfig
 %if %{build_with_metrics}
 # adding metric specific sources.
 Source6: metrics-graphite-2.2.0.jar
-Source7: kafka-graphite-1.0.5.jar
+Source7: kafka-graphite-1.0.6.jar
 %endif
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Prefix: %{_prefix}
